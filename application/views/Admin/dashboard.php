@@ -1,4 +1,8 @@
 <?php include('Header.php') ;?> 
+        <div class='container'>
+                <a href="<?= base_url('Admin/addArtical') ?>" class='btn btn-lg btn-success'>Add Article</a>
+        </div>
+
        <div class=container>
         <table class='table'>
                 <thead>

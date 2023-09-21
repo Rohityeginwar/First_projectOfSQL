@@ -20,14 +20,14 @@
                 <div class='form-group margin' >
                     <label for="email" class="control-label">Email</label>
                     <?php echo form_input(['class'=>'form-control','placeholder'=>'email@gmail.com','name'=>'email','value'=>set_value('email')]);?>
-                    <div class=red>
+                    <div class='red'>
                         <?php echo form_error('email') ;?>
                     </div>
                 </div>
                 <div class='form-group margin' >
                     <label for="password" class="control-label">Password</label>
                     <?php echo form_password(['class'=>'form-control','placeholder'=>'password','name'=>'pass','type'=>'password','value'=>set_value('pass')]);?>
-                    <div class=red>
+                    <div class='red'>
                         <?php echo form_error('pass') ;?>
                     </div>
                 </div>

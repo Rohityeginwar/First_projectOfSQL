@@ -44,5 +44,26 @@ class Admin extends CI_controller{
       if(!$this->session->userdata('name'));
       return redirect('Admin/intro');
     }
+
+    public function addArtical(){
+      $this->load->view('Admin/Add_artical');
+    }
+
+    public function userValidation(){
+      $d=$this->form_validation->run('add_article_rules');
+      if($d){
+        $post = $this->input->post();
+        $this->load->model('LoginModel');
+        if($this->LoginModel->add_articles($post)){
+          echo  'data inserted';
+        }
+        else{
+          echo  'error';
+        }
+      }
+      else{
+        $this->load->view('Admin/Add_artical.php');
+      }
+    }
 }
 ?>
