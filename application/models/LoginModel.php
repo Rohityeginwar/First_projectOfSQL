@@ -12,16 +12,28 @@ class LoginModel extends CI_model{
         }
     }
 
-    public function articallist(){
+    public function articallist($limit,$offset){
         $name=$this->session->userdata('name');
         $q = $this->db->from('articles')
-                  ->where(['username'=>$name])
+                    ->where(['username'=>$name])
+                    // ->limit($limit,$offset)
                   ->get();
         return $q->result_array();
     }
 
     public function add_articles($array){
        return $this->db->insert('articles',$array);
+    }
+
+    public function del($id){
+        return $this->db->delete('articles',['username'=>$id]);
+    }
+
+    public function num_rows(){
+        $id = $this->session->userdata('name');
+        $this->db->from('articles')
+                ->where(['username'=>$id])
+                ->get();
     }
 }
 ?>

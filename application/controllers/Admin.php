@@ -29,8 +29,16 @@ class Admin extends CI_controller{
 
 
     public function dashboard(){
+      $this->load->library('pagination');
+
       $this->load->model('LoginModel');
-     $artical['art'] = $this->LoginModel->articallist();
+      $config =[
+        'base_url' => base_url('Admin/dashboard'),
+        'per_page'=> 3,
+        'total_rows' => $this->LoginModel->num_rows(),
+      ];
+      $this->pagination->initialize($config);
+     $artical['art'] = $this->LoginModel->articallist($config,['per_page'],$this->uri->segment(3));
       $this->load->view('Admin/dashboard.php',$artical);
     }
 
@@ -55,15 +63,34 @@ class Admin extends CI_controller{
         $post = $this->input->post();
         $this->load->model('LoginModel');
         if($this->LoginModel->add_articles($post)){
-          echo  'data inserted';
+          $this->session->set_flashdata('msg','Article added successfully');
+          $this->session->set_flashdata('msg_class','alert-success');
         }
         else{
-          echo  'error';
+          $this->session->set_flashdata('msg','Article not added ,please try again ');
+          $this->session->set_flashdata('msg_class','alert-danger');
         }
       }
       else{
         $this->load->view('Admin/Add_artical.php');
       }
+      return redirect ('Admin/dashboard');
     }
+
+    public function delete(){
+      $id=$this->input->post('username');
+      $this->load->model('LoginModel');
+        if($this->LoginModel->del($id)){
+          $this->session->set_flashdata('msg','successfully deleted');
+          $this->session->set_flashdata('msg_class','alert-success');
+        }
+        else{
+          $this->session->set_flashdata('msg','please try again');
+          $this->session->set_flashdata('msg_class','alert-danger');
+        }
+        return redirect ('Admin/dashboard');
+      }
+
+      
 }
 ?>

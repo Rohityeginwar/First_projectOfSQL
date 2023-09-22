@@ -11,7 +11,6 @@
 <?php include('Header.php') ;?> 
         <div class='container'>
             <h1>Add Article</h1>
-            
             <?php echo form_open('Admin/userValidation');?>
             <?php echo form_hidden('UserName',$this->session->userdata('name')) ;?>
                 <div class='form-group margin' >

@@ -2,7 +2,18 @@
         <div class='container'>
                 <a href="<?= base_url('Admin/addArtical') ?>" class='btn btn-lg btn-success'>Add Article</a>
         </div>
+        <?php if($msg = $this->session->flashdata('msg')):?>
 
+
+                <?php $class=$this->session->flashdata('msg_class')?>
+                    <div class='container'>
+                        <div class='row'>
+                            <div class='alert <?= $class?>'>
+                                <?php echo $msg ;?>
+                            </div>
+                        </div>
+                    </div>
+            <?php endif ;?>
        <div class=container>
         <table class='table'>
                 <thead>
@@ -22,7 +33,14 @@
                                 <td><?php echo $arts['article_body'] ;?></td>
                                 <td><?php echo $arts['username'] ;?></td>
                                 <td><a href="#" class="btn btn-primary">Edit</a></td>
-                                <td><a href="#" class="btn btn-danger">delete</a></td>
+                                <td>
+                                <?=
+                                form_open('Admin/delete'),
+                                form_hidden('username',$arts['username'] ),
+                                form_submit(['name'=>'submit','value'=>'delete','class'=>'btn btn-danger']),
+                                form_close();
+                                ?>        
+                                </td>
                         </tr>
                         <?php endforeach ;?>
                         <?php else:?>
@@ -31,6 +49,8 @@
                                 </tr>
                         <?php endif ;?>
                 </tbody>
+                <?= $this->pagination->create_links($arts);?>
         </table>
+        <?= $this->pagination->create_links($arts);?>
         </div>
 <?php include('footer.php') ;?> 
