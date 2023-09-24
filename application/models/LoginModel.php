@@ -35,5 +35,17 @@ class LoginModel extends CI_model{
                 ->where(['username'=>$id])
                 ->get();
     }
+
+    public function findArticle($name){
+        $q = $this->db->select(['article_title','article_body','username'])
+                ->where('username',$name)
+                ->get('articles');
+                return $q->row();
+    }
+
+    public function updateArticle($id,Array $article){
+        return $this->db->where('name',$id)
+               ->update('articles',$article);
+    }
 }
 ?>

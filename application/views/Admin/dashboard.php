@@ -32,7 +32,7 @@
                                 <td><?php echo $arts['article_title'] ;?></td>
                                 <td><?php echo $arts['article_body'] ;?></td>
                                 <td><?php echo $arts['username'] ;?></td>
-                                <td><a href="#" class="btn btn-primary">Edit</a></td>
+                                <td><a href="<?= base_url('Admin/editArticle') ?>" class="btn btn-primary">Edit</a></td>
                                 <td>
                                 <?=
                                 form_open('Admin/delete'),

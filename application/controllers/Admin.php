@@ -91,6 +91,39 @@ class Admin extends CI_controller{
         return redirect ('Admin/dashboard');
       }
 
+      public function editArticle(){
+        $id=$this->session->userdata('name');
+        $this->load->model('LoginModel');
+        $rt = $this->LoginModel->findArticle($id);
+        $this->load->view('Admin/Edit_Article.php' , ['article'=>$rt]);
+      }
+
+
+      public function Update_article($id){
+       
+      if( $this->form_validation->run('add_article_rules')){
+        $post = $this->input->post();
+        // $name= $this->session->userdata('name');
+        //        $this->session->unset_userdata( $name);
+        $this->load->model('LoginModel');
+        if($this->LoginModel->updateArticle($post, $id)){
+          $this->session->set_flashdata('msg','Article updated successfully');
+          $this->session->set_flashdata('msg_class','alert-success');
+        }
+        else{
+          $this->session->set_flashdata('msg','please try again ');
+          $this->session->set_flashdata('msg_class','alert-danger');
+        }
+      }
+      else{
+        $this->load->view('Admin/editArticle.php');
+      }
+      return redirect ('Admin/dashboard');
+
+        }
+
+      }
+
       
-}
+
 ?>
